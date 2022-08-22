@@ -41,16 +41,20 @@ exports.testRangeTable = process.env.REMOTE ? '__dynalite_test_3' : randomName()
 exports.testRangeNTable = process.env.REMOTE ? '__dynalite_test_4' : randomName()
 exports.testRangeBTable = process.env.REMOTE ? '__dynalite_test_5' : randomName()
 
+DynamoDB_IP = process.env.DynamoDB_IP ? process.env.DynamoDB_IP : "127.0.0.1"
+DynamoDB_PORT = process.env.DynamoDB_PORT ? process.env.DynamoDB_PORT : "19100"
+
 var port = 10000 + Math.round(Math.random() * 10000),
     requestOpts = process.env.REMOTE ?
       {host: 'dynamodb.' + exports.awsRegion + '.amazonaws.com', method: 'POST'} :
-      {host: '127.0.0.1', port: port, method: 'POST'}
+      {host: DynamoDB_IP , port: DynamoDB_PORT, method: 'POST'}
 
 var dynaliteServer = dynalite({path: process.env.DYNALITE_PATH})
 
 var CREATE_REMOTE_TABLES = true
 var DELETE_REMOTE_TABLES = true
 
+/*
 before(function(done) {
   this.timeout(200000)
   dynaliteServer.listen(port, function(err) {
@@ -69,6 +73,7 @@ after(function(done) {
     dynaliteServer.close(done)
   })
 })
+*/
 
 var MAX_RETRIES = 20
 
